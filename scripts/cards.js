@@ -2,10 +2,12 @@ const initialCards = [
     {
       name: "Архыз",
       link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+      word: "aboba",
     },
     {
       name: "Челябинская область",
       link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+        word: "penis",
     },
     {
       name: "Иваново",

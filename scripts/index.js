@@ -1,30 +1,59 @@
-const cardTemplate = document.querySelector('#card-template').content
 const cardElementList = document.querySelector('.places__list')
 
-const addCard = ({name, link}) => {
+const cardItems = () => {
+    const cardTemplate = document.querySelector('#card-template').content
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true)
     const cardImageElement = cardElement.querySelector('.card__image')
     const cardTitleElement = cardElement.querySelector('.card__title')
 
-    cardImageElement.src = link
-    cardImageElement.alt = name
-    cardTitleElement.textContent = name
-
-    cardElementList.append(cardElement)
+    return {
+        li: cardElement,
+        imageCard: cardImageElement,
+        titleCard: cardTitleElement,
+    }
 }
 
-const removeCard = () => {
-    const cardsDelButtonElement = cardElementList.querySelectorAll('.card__delete-button')
+const renderItems = (parent, renderElement, data) => {
+    const {name, link} = data;
 
-    cardsDelButtonElement.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const target = e.target
-            target.parentElement.setAttribute('hidden', '')
-        })
-    })
+    renderElement.imageCard.src = link
+    renderElement.imageCard.alt = name
+    renderElement.titleCard.textContent = name
+
+    parent.append(renderElement.li)
 }
 
 initialCards.forEach(card => {
-    addCard(card)
+    renderItems(cardElementList, cardItems(), {...card})
 })
-removeCard()
+
+const cardsDelButtonElement = cardElementList.querySelector('.card__delete-button')
+
+const removeList = (parent, trigger) => {
+
+    parent.addEventListener('click', e => {
+
+        // if (typeof trigger[Symbol.iterator] === 'function') {
+        //     trigger.forEach(btn => {
+        //         if(e.target === btn || e.target.classList.contains('card__delete-button')) {
+        //             e.target.parentElement.setAttribute('hidden', '')
+        //             // e.target.parentElement.remove()
+        //             console.log('card is deleted')
+        //         }
+        //     })
+        // } else {
+        //     if(e.target === trigger || e.target.classList.contains('card__delete-button')) {
+        //         e.target.parentElement.remove()
+        //         console.log('card is deleted single')
+        //     }
+        // }
+
+        if(e.target === trigger || e.target.classList.contains('card__delete-button')) {
+            e.target.parentElement.remove()
+            console.log('card is deleted single')
+        }
+
+    })
+}
+
+removeList(cardElementList, cardsDelButtonElement)
