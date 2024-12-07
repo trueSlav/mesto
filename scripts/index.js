@@ -27,33 +27,12 @@ initialCards.forEach(card => {
     renderItems(cardElementList, cardItems(), {...card})
 })
 
-const cardsDelButtonElement = cardElementList.querySelector('.card__delete-button')
-
-const removeList = (parent, trigger) => {
-
+const removeItem = (parent) => {
     parent.addEventListener('click', e => {
-
-        // if (typeof trigger[Symbol.iterator] === 'function') {
-        //     trigger.forEach(btn => {
-        //         if(e.target === btn || e.target.classList.contains('card__delete-button')) {
-        //             e.target.parentElement.setAttribute('hidden', '')
-        //             // e.target.parentElement.remove()
-        //             console.log('card is deleted')
-        //         }
-        //     })
-        // } else {
-        //     if(e.target === trigger || e.target.classList.contains('card__delete-button')) {
-        //         e.target.parentElement.remove()
-        //         console.log('card is deleted single')
-        //     }
-        // }
-
-        if(e.target === trigger || e.target.classList.contains('card__delete-button')) {
+        if(e.target && e.target.classList.contains('card__delete-button')) {
             e.target.parentElement.remove()
-            console.log('card is deleted single')
         }
-
     })
-}
 
-removeList(cardElementList, cardsDelButtonElement)
+}
+removeItem(cardElementList)
