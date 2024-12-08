@@ -5,7 +5,7 @@ const selectCardItems = () => {
 	const cardElement = cardTemplate.querySelector('.card').cloneNode(true)
 	const cardImageElement = cardElement.querySelector('.card__image')
 	const cardTitleElement = cardElement.querySelector('.card__title')
-	const cardDeleteButtonElement = cardElement.querySelectorAll(
+	const cardDeleteButtonElement = cardElement.querySelector(
 		'.card__delete-button'
 	)
 
@@ -17,18 +17,16 @@ const selectCardItems = () => {
 	}
 }
 
-const createCard = (parent, renderElement, data) => {
+const createCard = (renderElement, removeCard, data) => {
 	const { name, link } = data
 
 	renderElement.cardImageElement.src = link
 	renderElement.cardImageElement.alt = name
 	renderElement.cardTitleElement.textContent = name
 
-	renderElement.cardDeleteButtonElement.forEach(button => {
-		button.addEventListener('click', () =>
-			removeItem(renderElement.cardElement)
-		)
-	})
+	renderElement.cardDeleteButtonElement.addEventListener('click', () =>
+		removeCard(renderElement.cardElement)
+	)
 
 	return renderElement.cardElement
 }
@@ -38,7 +36,5 @@ const removeItem = cardElement => {
 }
 
 initialCards.forEach(card => {
-	cardElementList.append(
-		createCard(cardElementList, selectCardItems(), { ...card })
-	)
+	cardElementList.append(createCard(selectCardItems(), removeItem, { ...card }))
 })
