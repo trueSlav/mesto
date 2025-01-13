@@ -1,7 +1,7 @@
 import './pages/index.css'
 import { initialCards } from './scripts/cards.js'
+import popup from './scripts/popup/main'
 
-console.log('test')
 const cardElementList = document.querySelector('.places__list')
 
 const selectCardItems = () => {
@@ -42,3 +42,43 @@ const removeItem = cardElement => {
 initialCards.forEach(card => {
 	cardElementList.append(createCard(selectCardItems(), removeItem, { ...card }))
 })
+
+popup()
+
+// --------- MODAL ---------
+//utils
+// const openPopup = popup => {
+// 	popup.classList.add('popup_is-opened')
+// }
+//
+// const closePopup = popup => {
+// 	if (popup.classList.contains('popup_is-opened')) {
+// 		popup.classList.remove('popup_is-opened')
+// 	}
+// }
+
+// popup_type_edit
+
+// const popupEditElement = document.querySelector('.popup_type_edit')
+// const openPopupEditButton = document.querySelector('.profile__edit-button')
+// const closePopupEditButton = document.querySelector('.popup__close')
+//
+// openPopupEditButton.addEventListener('click', () => {
+// 	openPopup(popupEditElement)
+// })
+//
+// popupEditElement.addEventListener('click', e => {
+// 	if (e.target === popupEditElement) {
+// 		closePopup(popupEditElement)
+// 	}
+// 	if (e.target === closePopupEditButton) {
+// 		closePopup(popupEditElement)
+// 	}
+// })
+
+// popup_type_new-card
+// const popupNewCardElement = document.querySelector('.popup_type_new-card')
+// const openPopupNewCardButton = document.querySelector('.profile__edit-button')
+// const closePopupNewCardButton = document.querySelector('.popup__close')
+
+// popup_type_image
