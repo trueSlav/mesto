@@ -1,6 +1,6 @@
 import './pages/index.css'
 import { initialCards } from './scripts/cards.js'
-import popup from './scripts/popup/main'
+import { popupEdit } from './scripts/popup/main'
 
 const cardElementList = document.querySelector('.places__list')
 
@@ -43,9 +43,14 @@ initialCards.forEach(card => {
 	cardElementList.append(createCard(selectCardItems(), removeItem, { ...card }))
 })
 
-popup()
-
 // --------- MODAL ---------
+const openPopupEditButton = document.querySelector('.profile__edit-button')
+const openPopupEditButtonS = document.querySelector('.profile__image')
+const opbtns = [openPopupEditButton, openPopupEditButtonS]
+const closePopupEditButton = document.querySelector('.popup__close')
+
+popupEdit(opbtns, closePopupEditButton)
+
 //utils
 // const openPopup = popup => {
 // 	popup.classList.add('popup_is-opened')

@@ -7,3 +7,21 @@ export const closePopup = popup => {
 		popup.classList.remove('popup_is-opened')
 	}
 }
+
+const isArray = arr => {
+	return Array.isArray(arr)
+}
+
+export const handleOpenTrigger = (openTrigger, openPopup) => {
+	return isArray(openTrigger)
+		? openTrigger.forEach(elem => {
+				elem.addEventListener('click', e => {
+					if (elem === e.target) {
+						openPopup()
+					}
+				})
+			})
+		: openTrigger.addEventListener('click', () => {
+				openPopup()
+			})
+}
