@@ -1,7 +1,5 @@
 import popupEdit from './popupEdit'
+import popupCreate from './popupCreate'
 
-const popup = () => {
-	popupEdit()
-}
-
-export default popup
+// , popupCreate, popupImage
+export { popupEdit, popupCreate }

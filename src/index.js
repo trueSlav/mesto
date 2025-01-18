@@ -1,84 +1,29 @@
 import './pages/index.css'
 import { initialCards } from './scripts/cards.js'
-import popup from './scripts/popup/main'
-
-const cardElementList = document.querySelector('.places__list')
-
-const selectCardItems = () => {
-	const cardTemplate = document.querySelector('#card-template').content
-	const cardElement = cardTemplate.querySelector('.card').cloneNode(true)
-	const cardImageElement = cardElement.querySelector('.card__image')
-	const cardTitleElement = cardElement.querySelector('.card__title')
-	const cardDeleteButtonElement = cardElement.querySelector(
-		'.card__delete-button'
-	)
-
-	return {
-		cardElement,
-		cardImageElement,
-		cardTitleElement,
-		cardDeleteButtonElement
-	}
-}
-
-const createCard = (renderElement, removeCard, data) => {
-	const { name, link } = data
-
-	renderElement.cardImageElement.src = link
-	renderElement.cardImageElement.alt = name
-	renderElement.cardTitleElement.textContent = name
-
-	renderElement.cardDeleteButtonElement.addEventListener('click', () =>
-		removeCard(renderElement.cardElement)
-	)
-
-	return renderElement.cardElement
-}
-
-const removeItem = cardElement => {
-	cardElement.remove()
-}
+import { initialRenderCard } from './scripts/createCard/createCard'
+import { popupEdit, popupCreate } from './scripts/popup/main'
 
 initialCards.forEach(card => {
-	cardElementList.append(createCard(selectCardItems(), removeItem, { ...card }))
+	initialRenderCard(card)
 })
 
-popup()
+// const newCard = {
+// 	name: 'gojo satory?',
+// 	link: 'https://plus.unsplash.com/premium_photo-1736803528008-0f172fbca646?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+// }
+//
+// renderCard(newCard)
 
 // --------- MODAL ---------
-//utils
-// const openPopup = popup => {
-// 	popup.classList.add('popup_is-opened')
-// }
-//
-// const closePopup = popup => {
-// 	if (popup.classList.contains('popup_is-opened')) {
-// 		popup.classList.remove('popup_is-opened')
-// 	}
-// }
+const closePopupEditButton = document.querySelector('.popup__close')
+// EDIT MODAL
+const openPopupEditButton = document.querySelector('.profile__edit-button')
+const openPopupEditButtonS = document.querySelector('.profile__image')
+const opbtns = [openPopupEditButton, openPopupEditButtonS]
 
-// popup_type_edit
+popupEdit(opbtns, closePopupEditButton)
 
-// const popupEditElement = document.querySelector('.popup_type_edit')
-// const openPopupEditButton = document.querySelector('.profile__edit-button')
-// const closePopupEditButton = document.querySelector('.popup__close')
-//
-// openPopupEditButton.addEventListener('click', () => {
-// 	openPopup(popupEditElement)
-// })
-//
-// popupEditElement.addEventListener('click', e => {
-// 	if (e.target === popupEditElement) {
-// 		closePopup(popupEditElement)
-// 	}
-// 	if (e.target === closePopupEditButton) {
-// 		closePopup(popupEditElement)
-// 	}
-// })
+// CREATE MODAL
+const openPopupCreateButton = document.querySelector('.profile__add-button')
 
-// popup_type_new-card
-// const popupNewCardElement = document.querySelector('.popup_type_new-card')
-// const openPopupNewCardButton = document.querySelector('.profile__edit-button')
-// const closePopupNewCardButton = document.querySelector('.popup__close')
-
-// popup_type_image
+popupCreate(openPopupCreateButton, closePopupEditButton)
