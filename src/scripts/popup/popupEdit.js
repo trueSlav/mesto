@@ -28,7 +28,7 @@ const popupEdit = (openTrigger, closeTrigger) => {
 	document.addEventListener('keydown', escapeClose)
 
 	// Находим форму в DOM
-	const formElement = document.querySelector('.popup__form')
+	const formElement = document.querySelector('form[name="edit-profile"]')
 	const nameInput = document.querySelector('.popup__input_type_name')
 	const jobInput = document.querySelector('.popup__input_type_description')
 	const profileNameElement = document.querySelector('.profile__title')
