@@ -1,33 +1,38 @@
-import { closePopup, openPopup, handleOpenTrigger } from './utilsPopup'
+import {
+	closePopup,
+	openPopup,
+	handleOpenTrigger,
+	handleCloseParent,
+	handleCloseTrigger,
+	handleCloseKey,
+	animatePopup
+} from './utilsPopup'
 
-const popupEdit = (openTrigger, closeTrigger) => {
+const popupEdit = openTrigger => {
 	const popupEditElement = document.querySelector('.popup_type_edit')
+	const closeTrigger = popupEditElement.querySelector('.popup__close')
+
+	animatePopup(popupEditElement)
 
 	handleOpenTrigger(openTrigger, () => {
 		openPopup(popupEditElement)
 	})
 
 	popupEditElement.addEventListener('click', e => {
-		if (e.target === popupEditElement) {
+		handleCloseParent(e, popupEditElement, () => {
 			closePopup(popupEditElement)
-		}
-		if (
-			e.target === closeTrigger &&
-			closeTrigger.classList.contains('popup__close')
-		) {
+		})
+		handleCloseTrigger(e, closeTrigger, () => {
 			closePopup(popupEditElement)
-		}
+		})
 	})
 
-	function escapeClose(e) {
-		if (e.key === 'Escape') {
+	document.addEventListener('keydown', e => {
+		handleCloseKey(e, () => {
 			closePopup(popupEditElement)
-			document.removeEventListener('keydown', escapeClose)
-		}
-	}
-	document.addEventListener('keydown', escapeClose)
+		})
+	})
 
-	// Находим форму в DOM
 	const formElement = document.querySelector('form[name="edit-profile"]')
 	const nameInput = document.querySelector('.popup__input_type_name')
 	const jobInput = document.querySelector('.popup__input_type_description')
