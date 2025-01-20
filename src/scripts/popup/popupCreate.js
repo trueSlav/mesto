@@ -1,36 +1,40 @@
-import { closePopup, handleOpenTrigger, openPopup } from './utilsPopup'
-import { renderCard } from '../createCard/createCard'
+import {
+	animatePopup,
+	closePopup,
+	handleCloseKey,
+	handleCloseParent,
+	handleCloseTrigger,
+	handleOpenTrigger,
+	openPopup
+} from './utilsPopup'
+import { renderCard } from '../card/createCard'
 
-const popupCreate = (openTrigger, closeTrigger) => {
+const popupCreate = openTrigger => {
 	const popupCreateElement = document.querySelector('.popup_type_new-card')
+	const closeTrigger = popupCreateElement.querySelector('.popup__close')
+
+	animatePopup(popupCreateElement)
 
 	handleOpenTrigger(openTrigger, () => {
 		openPopup(popupCreateElement)
 	})
 
 	popupCreateElement.addEventListener('click', e => {
-		if (e.target === popupCreateElement) {
+		handleCloseParent(e, popupCreateElement, () => {
 			closePopup(popupCreateElement)
-		}
-		if (
-			e.target === closeTrigger &&
-			closeTrigger.classList.contains('popup__close')
-		) {
+		})
+		handleCloseTrigger(e, closeTrigger, () => {
 			closePopup(popupCreateElement)
-		}
+		})
 	})
 
-	function escapeClose(e) {
-		if (e.key === 'Escape') {
+	document.addEventListener('keydown', e => {
+		handleCloseKey(e, () => {
 			closePopup(popupCreateElement)
-			document.removeEventListener('keydown', escapeClose)
-		}
-	}
-	document.addEventListener('keydown', escapeClose)
+		})
+	})
 
-	// Находим форму в DOM
 	const formElement = document.querySelector('form[name="new-place"]')
-	console.log(formElement)
 	const nameInput = document.querySelector('.popup__input_type_card-name')
 	const linkInput = document.querySelector('.popup__input_type_url')
 
